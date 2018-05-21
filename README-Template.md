@@ -15,10 +15,10 @@ do it in your root build.gradle at the end of repositories:
 
 ```
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+	...
+	maven { url 'https://jitpack.io' }
+	}
 	}
 ```
 
@@ -32,47 +32,84 @@ dependencies {
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Define a view in your layout file:
 
 ```
-Give an example
+ <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context="com.db.circularanimateddrawable.MainActivity">
+
+    <com.db.circularanimateddrawable.widgets.CircularProgressButton
+        android:id="@+id/progressButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginStart="@dimen/margin"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:text="@string/circular_text"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:finalCornerAngle="100dp"
+        app:initialCornerAngle="50dp"
+        app:spinning_bar_color="@color/colorPrimary"
+        app:spinning_bar_padding="@dimen/padding_smallest"
+        app:spinning_bar_width="4dp" />
+
+</LinearLayout>
+
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+And (or) add following code to your activity:
 
 ```
-Give an example
+public class MainActivity extends AppCompatActivity {
+    CircularProgressButton circularProgressButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        circularProgressButton = findViewById(R.id.progressButton);
+        circularProgressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // circularProgressButton.revertAnimation();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        circularProgressButton.revertAnimation(new OnAnimationEndListener() {
+
+                            @Override
+                            public void onAnimationEnd() {
+                                Toast.makeText(getBaseContext(), "Animation End", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }, 15000);
+                circularProgressButton.startAnimation();
+            }
+        });
+    }
+    }
+
 ```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Ahmad Wahaj** - *Initial work* - [PurpleBooth](https://github.com/ahmadwahaj91)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
@@ -80,9 +117,4 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
 
