@@ -6,28 +6,28 @@ Log Utilities Sample
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
 
 ### Installing
 
 A step by step series of examples that tell you have to get a development env running
 
-Say what the step will be
+do it in your root build.gradle at the end of repositories:
 
 ```
-Give the example
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 ```
 
-And repeat
+Add the dependency
 
 ```
-until finished
+dependencies {
+		implementation 'com.github.User:Repo:Tag'
+	}
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
