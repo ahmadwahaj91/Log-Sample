@@ -19,14 +19,14 @@ allprojects {
 	...
 	maven { url 'https://jitpack.io' }
 	}
-	}
+	 }
 ```
 
 Add the dependency
 
 ```
 dependencies {
-		implementation 'com.github.User:Repo:Tag'
+	implementation 'com.github.User:Repo:Tag'
 	}
 ```
 
